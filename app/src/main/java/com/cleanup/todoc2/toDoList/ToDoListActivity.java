@@ -305,11 +305,24 @@ public class ToDoListActivity extends AppCompatActivity implements TasksAdapter.
     /**
      * Sets the data of the Spinner with projects to associate to a new task
      */
+    /**
+     * Sets the data of the Spinner with projects to associate to a new task
+     */
     private void populateDialogSpinner() {
-        final ArrayAdapter<Project> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, projectList.toArray(new Project[0]));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        if (dialogSpinner != null) {
-            dialogSpinner.setAdapter(adapter);
+        ArrayList<String> mProjectList = new ArrayList<>();
+
+        for (int mId = 1; mId <= projectList.size(); mId++) {
+            String mProjectName = projectList.get(mId - 1).getName();
+            mProjectList.add(mProjectName);
+            String[] mProjectArray = mProjectList.toArray(new String[0]);
+            final ArrayAdapter<String> adapter
+                    = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mProjectArray);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            if (dialogSpinner != null) {
+                dialogSpinner.setAdapter(adapter);
+            }
         }
     }
+
 }

@@ -15,8 +15,8 @@ public interface TaskDao {
     @Query("SELECT * FROM Task")
     LiveData<List<Task>> getAllTasksDefault();
 
-//    @Query("SELECT * FROM Task inner join Project on Task.projectId = Project.id GROUP BY Project.id")
-//    LiveData<List<Task>> getAllTasksByProjectName();
+ //   @Query("SELECT Task.id as idTask, Task.projectId, Task.creationTimestamp, Task.name as nameTask, Project.color, Project.name as nameProject FROM Task inner join Project on Task.projectId = Project.id ORDER BY Project.id")
+ //   LiveData<List<Task>> getAllTasksByProjectName();
 
     @Insert
     void insertTask(Task task);

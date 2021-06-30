@@ -38,7 +38,7 @@ public abstract class TodocDatabase extends RoomDatabase {
             synchronized (TodocDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TodocDatabase.class, "ToDoc5.db")
+                            TodocDatabase.class, "ToDoc6.db")
                             .addCallback(prepopulateDatabase())
                             .build();
                 }
@@ -75,8 +75,8 @@ public abstract class TodocDatabase extends RoomDatabase {
 //              Initialize Task
                 ContentValues taskContentValues = new ContentValues();
 
-                long cpt = 0;
-                long pid = 0;
+                long cpt = 1;
+                long pid = 1;
                 String pname = "";
                 while (cpt < 10) {
                     Random random = new Random();
