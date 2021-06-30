@@ -1,10 +1,10 @@
-package com.cleanup.todoc.database.dao;
+package com.cleanup.todoc2.database.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.cleanup.todoc.model.Project;
+import com.cleanup.todoc2.model.Project;
 
 import java.util.List;
 

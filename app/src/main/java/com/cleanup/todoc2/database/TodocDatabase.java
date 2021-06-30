@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database;
+package com.cleanup.todoc2.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,10 +10,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.cleanup.todoc.database.dao.ProjectDao;
-import com.cleanup.todoc.database.dao.TaskDao;
-import com.cleanup.todoc.model.Project;
-import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc2.database.dao.ProjectDao;
+import com.cleanup.todoc2.database.dao.TaskDao;
+import com.cleanup.todoc2.model.Project;
+import com.cleanup.todoc2.model.Task;
 
 import java.util.Date;
 import java.util.Random;
@@ -38,7 +38,7 @@ public abstract class TodocDatabase extends RoomDatabase {
             synchronized (TodocDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TodocDatabase.class, "ToDoc.db")
+                            TodocDatabase.class, "ToDoc5.db")
                             .addCallback(prepopulateDatabase())
                             .build();
                 }
@@ -68,7 +68,7 @@ public abstract class TodocDatabase extends RoomDatabase {
                 db.insert("Project", OnConflictStrategy.REPLACE, projectContentValues);
 
                 projectContentValues.put("id", 3L);
-                projectContentValues.put("name", "Projet Circus bis");
+                projectContentValues.put("name", "Projet Circus ter");
                 projectContentValues.put("color", 0xFFA3CED2);
                 db.insert("Project", OnConflictStrategy.REPLACE, projectContentValues);
 

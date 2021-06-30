@@ -1,4 +1,4 @@
-package com.cleanup.todoc;
+package com.cleanup.todoc2;
 
 import android.content.ContentValues;
 import android.content.pm.ActivityInfo;
@@ -17,8 +17,8 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-import com.cleanup.todoc.database.TodocDatabase;
-import com.cleanup.todoc.toDoList.MainActivity;
+import com.cleanup.todoc2.database.TodocDatabase;
+import com.cleanup.todoc2.toDoList.MainActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,7 +32,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.cleanup.todoc.TestUtils.withRecyclerView;
+import static com.cleanup.todoc2.TestUtils.withRecyclerView;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 

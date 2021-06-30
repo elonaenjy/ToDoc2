@@ -1,12 +1,12 @@
-package com.cleanup.todoc.toDoList;
+package com.cleanup.todoc2.toDoList;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cleanup.todoc.model.Project;
-import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.toDoList.repository.ProjectDataRepository;
-import com.cleanup.todoc.toDoList.repository.TaskDataRepository;
+import com.cleanup.todoc2.model.Project;
+import com.cleanup.todoc2.model.Task;
+import com.cleanup.todoc2.toDoList.repository.ProjectDataRepository;
+import com.cleanup.todoc2.toDoList.repository.TaskDataRepository;
 
 import java.util.List;
 import java.util.concurrent.Executor;
