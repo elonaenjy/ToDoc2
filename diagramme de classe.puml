@@ -1,0 +1,246 @@
+@startuml
+abstract class com.cleanup.todoc2.database.TodocDatabase {
+- {static} TodocDatabase INSTANCE
+- {static} int NUMBER_OF_THREADS
++ {static} ExecutorService databaseWriteExecutor
++ {abstract}ProjectDao projectDao()
++ {abstract}TaskDao taskDao()
++ {static} TodocDatabase getInstance(Context)
+- {static} Callback prepopulateDatabase()
+}
+class com.cleanup.todoc2.model.Task {
+- long id
+- long projectId
+- String name
+- long creationTimestamp
++ long getId()
++ void setId(long)
++ long getProjectId()
++ void setProjectId(long)
++ String getName()
+- void setName(String)
++ long getCreationTimestamp()
+- void setCreationTimestamp(long)
+}
+class com.cleanup.todoc2.toDoList.repository.ProjectDataRepository {
+- ProjectDao projectDao
++ LiveData<List<Project>> getAllProjects()
+}
+class com.cleanup.todoc2.toDoList.TaskViewModel {
+- ProjectDataRepository projectDataSource
+- TaskDataRepository taskDataSource
+- Executor executor
++ SortTaskList sortTaskList
++ LiveData<List<Project>> getProjects()
++ LiveData<List<Task>> getTaskSorted()
++ void addTask(Task)
++ void deleteTask(long)
+}
+class com.cleanup.todoc2.RecyclerViewMatcher {
+- int recyclerViewId
++ Matcher<View> atPosition(int)
++ Matcher<View> atPositionOnView(int,int)
+}
+class com.cleanup.todoc2.BuildConfig {
++ {static} boolean DEBUG
++ {static} String APPLICATION_ID
++ {static} String BUILD_TYPE
++ {static} int VERSION_CODE
++ {static} String VERSION_NAME
+}
+class com.cleanup.todoc2.database.dao.ProjectDao_Impl {
+- RoomDatabase __db
++ LiveData<List<Project>> getAllProjects()
++ {static} List<Class<?>> getRequiredConverters()
+}
+class com.cleanup.todoc2.toDoList.TasksAdapter {
+- List<Task> taskList
+- List<Project> projectList
+- DeleteTaskListener deleteTaskListener
+~ void updateTasks(List<Task>,List<Project>)
++ TaskViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(TaskViewHolder,int)
++ int getItemCount()
+}
+interface com.cleanup.todoc2.toDoList.TasksAdapter.DeleteTaskListener {
+~ void onDeleteTask(Task)
+}
+class com.cleanup.todoc2.toDoList.TasksAdapter.TaskViewHolder {
+- AppCompatImageView imgProject
+- TextView lblTaskName
+- TextView lblProjectName
+- AppCompatImageView imgDelete
+- DeleteTaskListener deleteTaskListener
+~ void bind(Task)
+- Project getProject(long)
+}
+class com.cleanup.todoc2.MainActivityInstrumentedTest {
++ ActivityTestRule<MainActivity> rule
+- TodocDatabase db
+- {static} RoomDatabase.Callback prepopulateDatabase()
++ void initDb()
++ void closeDb()
++ void addAndRemoveTask()
++ void sortTasks()
++ void sortTasksThenRotateScreen()
+}
+class com.cleanup.todoc2.injections.Injection {
++ {static} TaskDataRepository provideTaskDataSource(Context)
++ {static} ProjectDataRepository provideProjectDataSource(Context)
++ {static} Executor provideExecutor()
++ {static} ViewModelFactory provideViewModelFactory(Context)
+}
+class com.cleanup.todoc2.model.Project {
+- long id
+- String name
+- int color
++ long getId()
++ void setId(long)
++ String getName()
++ void setName(String)
++ int getColor()
++ void setColor(int)
+}
+class com.cleanup.todoc2.database.TodocDatabase_Impl {
+- ProjectDao _projectDao
+- TaskDao _taskDao
+# SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration)
+# InvalidationTracker createInvalidationTracker()
++ void clearAllTables()
+# Map<Class<?>,List<Class<?>>> getRequiredTypeConverters()
++ ProjectDao projectDao()
++ TaskDao taskDao()
+}
+interface com.cleanup.todoc2.database.dao.TaskDao {
+~ LiveData<List<Task>> getAllTasksDefault()
+~ void insertTask(Task)
+~ void deleteTask(long)
+~ LiveData<List<Task>> getTasksAlphabeticalAZ()
+~ LiveData<List<Task>> getTasksAlphabeticalZA()
+~ LiveData<List<Task>> getTasksNewToOld()
+~ LiveData<List<Task>> getTasksOldToNew()
+~ LiveData<Task> getTask(long)
+}
+class com.cleanup.todoc2.toDoList.repository.TaskDataRepository {
+- TaskDao taskDao
+- MutableLiveData<Integer> taskListMutableLiveData
++ LiveData<List<Task>> getTasks()
++ LiveData<List<Task>> getTasksAZ()
++ LiveData<List<Task>> getTasksZA()
++ LiveData<List<Task>> getTasksNewOld()
++ LiveData<List<Task>> getTasksOldNew()
++ void addTask(Task)
++ void deleteTask(long)
+}
+class com.cleanup.todoc2.injections.ViewModelFactory {
+- TaskDataRepository taskDataSource
+- ProjectDataRepository projectDataSource
+- Executor executor
++ T create(Class<T>)
+}
+class com.cleanup.todoc2.database.dao.TaskDao_Impl {
+- RoomDatabase __db
+- EntityInsertionAdapter<Task> __insertionAdapterOfTask
+- SharedSQLiteStatement __preparedStmtOfDeleteTask
++ void insertTask(Task)
++ void deleteTask(long)
++ LiveData<List<Task>> getAllTasksDefault()
++ LiveData<List<Task>> getTasksAlphabeticalAZ()
++ LiveData<List<Task>> getTasksAlphabeticalZA()
++ LiveData<List<Task>> getTasksNewToOld()
++ LiveData<List<Task>> getTasksOldToNew()
++ LiveData<Task> getTask(long)
++ {static} List<Class<?>> getRequiredConverters()
+}
+class com.cleanup.todoc2.TestUtils {
++ {static} ViewAction actionOnItemViewAtPosition(int,int,ViewAction)
++ {static} RecyclerViewMatcher withRecyclerView(int)
+}
+class com.cleanup.todoc2.TestUtils.ActionOnItemViewAtPositionViewAction {
+- int position
+- ViewAction viewAction
+- int viewId
++ Matcher<View> getConstraints()
++ String getDescription()
++ void perform(UiController,View)
+}
+class com.cleanup.todoc2.TestUtils.ScrollToPositionViewAction {
+- int position
++ Matcher<View> getConstraints()
++ String getDescription()
++ void perform(UiController,View)
+}
+interface com.cleanup.todoc2.database.dao.ProjectDao {
+~ LiveData<List<Project>> getAllProjects()
+}
+class com.cleanup.todoc2.model.TaskFull {
+- long idTask
+- long idProject
+- long creationTimestamp
+- String nameTask
+- long color
+- String nameProject
++ long getIdTask()
++ void setIdTask(long)
++ long getIdProject()
++ void setIdProject(long)
++ long getCreationTimestamp()
++ void setCreationTimestamp(long)
++ String getNameTask()
++ void setNameTask(String)
++ long getColor()
++ void setColor(long)
++ String getNameProject()
++ void setNameProject(String)
++ boolean equals(Object)
++ int hashCode()
+}
+class com.cleanup.todoc2.toDoList.ToDoListActivity {
+- TaskViewModel taskViewModel
+- List<Project> projectList
+- List<Task> taskList
+- TasksAdapter adapter
++ AlertDialog dialog
+- EditText dialogEditText
+- Spinner dialogSpinner
+- RecyclerView listTasks
+- TextView lblNoTasks
++ void onCreate(Bundle)
+- void configureViewModel()
+- void updateAdapter()
+- void getTaskSorted(TaskViewModel.SortTaskList)
+- void getTasksAZ()
+- void getTasksZA()
+- void getTasksNewOld()
+- void getTasksOldNew()
+- void updateTasks(List<Task>)
++ void onDeleteTask(Task)
+- void addTask(Task)
+- void getProjectList()
+- void updateProjects(List<Project>)
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
+- void showAddTaskDialog()
+- AlertDialog getAddTaskDialog()
+- void onAddTaskPositiveButtonClick(DialogInterface)
+- void populateDialogSpinner()
+}
+
+
+androidx.room.RoomDatabase <|-- com.cleanup.todoc2.database.TodocDatabase
+androidx.lifecycle.ViewModel <|-- com.cleanup.todoc2.toDoList.TaskViewModel
+com.cleanup.todoc2.database.dao.ProjectDao <|.. com.cleanup.todoc2.database.dao.ProjectDao_Impl
+com.cleanup.todoc2.toDoList.Adapter <|-- com.cleanup.todoc2.toDoList.TasksAdapter
+com.cleanup.todoc2.toDoList.TasksAdapter +.. com.cleanup.todoc2.toDoList.TasksAdapter.DeleteTaskListener
+com.cleanup.todoc2.toDoList.TasksAdapter +.. com.cleanup.todoc2.toDoList.TasksAdapter.TaskViewHolder
+com.cleanup.todoc2.toDoList.ViewHolder <|-- com.cleanup.todoc2.toDoList.TasksAdapter.TaskViewHolder
+com.cleanup.todoc2.database.TodocDatabase <|-- com.cleanup.todoc2.database.TodocDatabase_Impl
+com.cleanup.todoc2.injections.Factory <|.. com.cleanup.todoc2.injections.ViewModelFactory
+com.cleanup.todoc2.database.dao.TaskDao <|.. com.cleanup.todoc2.database.dao.TaskDao_Impl
+com.cleanup.todoc2.TestUtils +.. com.cleanup.todoc2.TestUtils.ActionOnItemViewAtPositionViewAction
+com.cleanup.todoc2.ViewAction <|.. com.cleanup.todoc2.TestUtils.ActionOnItemViewAtPositionViewAction
+com.cleanup.todoc2.TestUtils +.. com.cleanup.todoc2.TestUtils.ScrollToPositionViewAction
+com.cleanup.todoc2.ViewAction <|.. com.cleanup.todoc2.TestUtils.ScrollToPositionViewAction
+com.cleanup.todoc2.toDoList.DeleteTaskListener <|.. com.cleanup.todoc2.toDoList.ToDoListActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.cleanup.todoc2.toDoList.ToDoListActivity
+@enduml

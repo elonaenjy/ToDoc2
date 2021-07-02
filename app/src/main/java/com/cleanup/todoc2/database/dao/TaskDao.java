@@ -15,10 +15,7 @@ public interface TaskDao {
     @Query("SELECT * FROM Task ORDER BY projectId")
     LiveData<List<Task>> getAllTasksDefault();
 
- //   @Query("SELECT Task.id as idTask, Task.projectId, Task.creationTimestamp, Task.name as nameTask, Project.color, Project.name as nameProject FROM Task inner join Project on Task.projectId = Project.id ORDER BY Project.id")
- //   LiveData<List<TaskFull>> getAllTasksByProjectName();
-
-    @Insert
+     @Insert
     void insertTask(Task task);
 
     @Query("DELETE FROM Task WHERE id = :taskId")
