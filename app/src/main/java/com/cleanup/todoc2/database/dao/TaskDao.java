@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.cleanup.todoc2.model.Task;
-import com.cleanup.todoc2.model.TaskFull;
 
 import java.util.List;
 
@@ -16,8 +15,8 @@ public interface TaskDao {
     @Query("SELECT * FROM Task ORDER BY projectId")
     LiveData<List<Task>> getAllTasksDefault();
 
-    @Query("SELECT Task.id as idTask, Task.projectId, Task.creationTimestamp, Task.name as nameTask, Project.color, Project.name as nameProject FROM Task inner join Project on Task.projectId = Project.id ORDER BY Project.id")
-    LiveData<List<TaskFull>> getAllTasksByProjectName();
+ //   @Query("SELECT Task.id as idTask, Task.projectId, Task.creationTimestamp, Task.name as nameTask, Project.color, Project.name as nameProject FROM Task inner join Project on Task.projectId = Project.id ORDER BY Project.id")
+ //   LiveData<List<TaskFull>> getAllTasksByProjectName();
 
     @Insert
     void insertTask(Task task);
